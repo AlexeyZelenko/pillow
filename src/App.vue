@@ -2,9 +2,9 @@
 <!--  <img alt="Vue logo" src="~/assets/logo.png" />-->
 	<div class="card mb-3">
 		<img
-				src="src/assets/pirjya.jpg"
+				src="https://drive.google.com/uc?export=view&id=1YQTC25oWYfkMmrjt-FYR_Nt1ir_Za1dq"
 				class="card-img-top"
-				alt="..."
+				alt="feathers"
 		>
 		<div class="card-body" style="background-color: cornflowerblue">
 <!--			<h5 class="card-title">Card title</h5>-->

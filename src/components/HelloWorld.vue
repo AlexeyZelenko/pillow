@@ -85,7 +85,7 @@
 			<div class="col">
 				<div class="card">
 					<img
-							src="src/assets/pillow.png"
+							src="https://drive.google.com/uc?export=view&id=1VW90BWZ4tY-BSdVk8OKe4byvODNvzMd1"
 							class="card-img-top"
 							alt="pillow"
 					>
@@ -107,7 +107,7 @@
 			<div class="col">
 				<div class="card">
 					<img
-							src="src/assets/carpet.png"
+							src="https://drive.google.com/uc?export=view&id=1AhRqLSPXlizdyL80d1sNQjM8-3R5GpVh"
 							class="card-img-top"
 							alt="carpet"
 					>
@@ -129,7 +129,7 @@
 			<div class="col">
 				<div class="card h-100">
 					<img
-							src="src/assets/feather_bed.png"
+							src="https://drive.google.com/uc?export=view&id=17LedA1pIJjcNyh-wLp08o0syZ1qQvAFy"
 							class="card-img-top"
 							alt="feather bed"
 					>
@@ -150,8 +150,9 @@
 			</div>
 			<div class="col">
 				<div class="card">
+
 					<img
-							src="src/assets/postal.jpg"
+							src="https://drive.google.com/uc?export=view&id=1gf9Be7l_SN-TQmA6ajzIkeRa40Dnce7t"
 							class="card-img-top"
 							alt="postal"
 					>

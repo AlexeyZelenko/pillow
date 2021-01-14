@@ -150,7 +150,6 @@
 			</div>
 			<div class="col">
 				<div class="card">
-
 					<img
 							src="https://drive.google.com/uc?export=view&id=1gf9Be7l_SN-TQmA6ajzIkeRa40Dnce7t"
 							class="card-img-top"

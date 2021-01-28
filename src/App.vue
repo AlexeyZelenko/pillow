@@ -1,21 +1,24 @@
 <template>
-<!--  <img alt="Vue logo" src="~/assets/logo.png" />-->
-	<div class="card mb-3">
+	<div
+			class="card mb-3"
+	>
+		<div
+				class="card-body"
+				ref="header"
+				style="z-index: 999; background-color: cornflowerblue; width: 100%; max-height: 100px"
+		>
+			<p class="text-white">Телефони: 0966936001, 0633653655 , 0677045632</p>
+			<p class="text-white-50 pb-2">Вайбер: 0966936001</p>
+		</div>
 		<img
 				src="https://drive.google.com/uc?export=view&id=1YQTC25oWYfkMmrjt-FYR_Nt1ir_Za1dq"
 				class="card-img-top"
 				alt="feathers"
 		>
-		<div class="card-body" style="background-color: cornflowerblue">
-<!--			<h5 class="card-title">Card title</h5>-->
-<!--			<p class="card-text">Реставрація подушок, ковдр, перин.</p>-->
-<!--			<p class="card-text">Пошиття постільної білизни.</p>-->
-			<p class="text-white">Телефони: 0966936001, 0633653655 , 0677045632</p>
-			<p class="text-white-50">Вайбер: 0966936001</p>
-		</div>
 	</div>
 
-  <HelloWorld msg="Наші послуги" />
+	<HelloWorld style="z-index: 1"/>
+
 
 	<footer>
 		<div>
@@ -32,13 +35,47 @@ import HelloWorld from './components/HelloWorld.vue'
 
 export default {
   name: 'App',
+	data() {
+      return {
+          scrollY: 0,
+          elY: 0,
+			}
+	},
   components: {
     HelloWorld
-  }
+  },
+	created() {
+			window.addEventListener('scroll', this.onScroll);
+	},
+	methods: {
+			onScroll() {
+					const el = this.$refs.header;
+					const height = el.getBoundingClientRect().height;
+					const pos = window.pageYOffset;
+					const diff = this.scrollY - pos;
+
+					this.elY = Math.min(0, Math.max(-height, this.elY + diff));
+					el.style.position = pos >= height ? 'fixed' : pos === 0 ? 'absolute' : el.style.position;
+					el.style.transform = `translateY(${el.style.position === 'fixed' ? this.elY : 0}px)`;
+
+					this.scrollY = pos;
+			},
+	},
 }
 </script>
 
 <style>
+	body {
+		margin: 0;
+	}
+
+	header {
+		z-index: 999;
+		position: absolute;
+		top: 0;
+		height: 100px;
+		width: 100%;
+	}
 	iframe {
 		width: 100%;
 		height: 640px;
@@ -75,5 +112,13 @@ export default {
 	footer .copyright {
 		font-size: 12px;
 		color: #eee;
+	}
+	p {
+		font-size: 18px;
+	}
+	@media (max-width: 900px)  {
+		p {
+			font-size: 14px;
+		}
 	}
 </style>

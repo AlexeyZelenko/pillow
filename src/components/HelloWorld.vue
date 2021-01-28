@@ -1,6 +1,4 @@
 <template>
-  <h1>{{ msg }}</h1>
-
 	<!-- Modal -->
 	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
@@ -78,97 +76,13 @@
 		</div>
 	</div>
 
-	<div
-			class="container"
-	>
-		<div class="row row-cols-1 row-cols-md-2 g-4">
-			<div class="col">
-				<div class="card">
-					<img
-							src="https://drive.google.com/uc?export=view&id=1VW90BWZ4tY-BSdVk8OKe4byvODNvzMd1"
-							class="card-img-top"
-							alt="pillow"
-					>
-					<div class="card-body">
-						<h3 class="card-title">Реставрація подушок.</h3>
-					</div>
-					<!-- Button trigger modal -->
-					<button
-							type="button"
-							class="btn btn-primary"
-							data-bs-toggle="modal"
-							data-bs-target="#exampleModal"
-
-					>
-						Більше
-					</button>
-				</div>
-			</div>
-			<div class="col">
-				<div class="card">
-					<img
-							src="https://drive.google.com/uc?export=view&id=1AhRqLSPXlizdyL80d1sNQjM8-3R5GpVh"
-							class="card-img-top"
-							alt="carpet"
-					>
-					<div class="card-body">
-						<h3 class="card-title">Реставрація ковдр.</h3>
-					</div>
-					<!-- Button trigger modal -->
-					<button
-							type="button"
-							class="btn btn-primary"
-							data-bs-toggle="modal"
-							data-bs-target="#exampleModal2"
-
-					>
-						Більше
-					</button>
-				</div>
-			</div>
-			<div class="col">
-				<div class="card h-100">
-					<img
-							src="https://drive.google.com/uc?export=view&id=17LedA1pIJjcNyh-wLp08o0syZ1qQvAFy"
-							class="card-img-top"
-							alt="feather bed"
-					>
-					<div class="card-body">
-						<h3 class="card-title">Реставрація перин.</h3>
-					</div>
-					<!-- Button trigger modal -->
-					<button
-							type="button"
-							class="btn btn-primary"
-							data-bs-toggle="modal"
-							data-bs-target="#exampleModal3"
-
-					>
-						Більше
-					</button>
-				</div>
-			</div>
-			<div class="col">
-				<div class="card">
-					<img
-							src="https://drive.google.com/uc?export=view&id=1gf9Be7l_SN-TQmA6ajzIkeRa40Dnce7t"
-							class="card-img-top"
-							alt="postal"
-					>
-					<div class="card-body">
-						<h3 class="card-title">Пошиття постільної білизни</h3>
-					</div>
-					<!-- Button trigger modal -->
-					<button
-							type="button"
-							class="btn btn-primary"
-							data-bs-toggle="modal"
-							data-bs-target="#exampleModal4"
-
-					>
-						Більше
-					</button>
-				</div>
+	<div	class="container">
+		<div	class="row row-cols-1 row-cols-md-2 g-4">
+			<div class="col py-2"
+					 v-for="service in services"
+					 :key="service.id"
+			>
+				<Services :service="service"/>
 			</div>
 		</div>
 	</div>
@@ -176,21 +90,48 @@
 </template>
 
 <script>
+	import Services from './Services.vue'
+
 export default {
   name: 'HelloWorld',
   props: {
     msg: String
   },
+	components: {
+      Services
+	},
   data() {
     return {
       count: 0,
 			services: [
 					{
-					    img: '',
+					    id: 1,
+					    img: 'https://drive.google.com/uc?export=view&id=1VW90BWZ4tY-BSdVk8OKe4byvODNvzMd1',
 							alt: '',
-							title: 'Card title',
-							text: ''
-					}
+							title: 'Реставрація подушок.',
+							button: '#exampleModal'
+					},
+          {
+              id: 2,
+              img: 'https://drive.google.com/uc?export=view&id=1AhRqLSPXlizdyL80d1sNQjM8-3R5GpVh',
+              alt: '',
+              title: 'Реставрація ковдр.',
+              button: '#exampleModal2'
+          },
+          {
+              id: 3,
+              img: 'https://drive.google.com/uc?export=view&id=17LedA1pIJjcNyh-wLp08o0syZ1qQvAFy',
+              alt: '',
+              title: 'Реставрація перин.',
+              button: '#exampleModal3'
+          },
+          {
+              id: 4,
+              img: 'https://drive.google.com/uc?export=view&id=1gf9Be7l_SN-TQmA6ajzIkeRa40Dnce7t',
+              alt: '',
+              title: 'Пошиття постільної білизни',
+              button: '#exampleModal4'
+          }
 			]
     }
   }

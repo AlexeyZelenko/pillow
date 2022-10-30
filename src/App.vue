@@ -1,202 +1,242 @@
 <template>
-<!--	<Vue3CountdownClock/>-->
-	<div
-			class="card mb-3"
-	>
-		<div
-				class="card-body"
-				ref="header"
-				style="z-index: 999; background-color: cornflowerblue; width: 100%; max-height: 100px"
-		>
-			<p class="text-white">Телефони: 0966936001, 0633653655 , 0677045632</p>
-			<p class="text-white-50 pb-2">Вайбер: 0966936001</p>
-		</div>
-		<img
-				src="https://drive.google.com/uc?export=view&id=1YQTC25oWYfkMmrjt-FYR_Nt1ir_Za1dq"
-				class="card-img-top"
-				alt="feathers"
-		>
-	</div>
+  <div class="navbar">
+    <div class="navbar--logo">
+      <a href="#home">
+        <img style="height: 80px" src="./assets/images/logo.png" alt="">
+      </a>
+    </div>
+    <div class="navbar--menu">
+      <a href="#home">Home</a>
+      <a href="#news">News</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="navbar--icons">
+      <div>
+        <img src="./assets/images/facebook.svg" alt="facebook">
+      </div>
+      <div>
+        <img src="./assets/images/telegram.svg" alt="telegram">
+      </div>
+    </div>
+    <div class="navbar--button">
+      <div class="navbar--button__text">Пожертвувати</div>
+    </div>
+    <div class="navbar--translate">
+      <div class="navbar--translate__text">En</div>
+      <div class="navbar--translate__text">Укр</div>
+    </div>
+  </div>
+  <!--  Фото с описанием-->
+  <vCatalogItem
+      v-for="(product, i) in sections"
+      :key="product.title"
+      :index="i"
+      :data="product"
+  />
+   <vFooterInfo />
 
-	<HelloWorld style="z-index: 1"/>
-
-
-	<footer>
-		<div>
-			<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d733.6029174975548!2d32.10251774294741!3d49.419197637518145!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDnCsDI1JzEwLjIiTiAzMsKwMDYnMTIuOCJF!5e0!3m2!1sru!2sua!4v1610618716700!5m2!1sru!2sua" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
-			<div>
-				<div class="brand">{{ new Date().getFullYear() }} — Галина Філатова</div>
-			</div>
-		</div>
-	</footer>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-import { defineComponent, ref, provide } from 'vue'
-import Vue3CountdownClock from 'vue3-clock-countdown'
+import { defineAsyncComponent } from 'vue'
+
+const vCatalogItem = defineAsyncComponent(() => import('./components/CatalogItem/index.vue'))
+const vFooterInfo = defineAsyncComponent(() => import('./components/vFooterInfo/index.vue'))
 
 export default {
-  name: 'App',
-	data() {
-      return {
-          scrollY: 0,
-          elY: 0,
-			}
-	},
+  name: 'AboutUs',
   components: {
-    HelloWorld, Vue3CountdownClock
+    vCatalogItem,
+     vFooterInfo
   },
-    setup () {
-        const deadLine = ref('2021/02/06 10:00:00 GMT-0200')
-        provide('deadline', deadLine)
+  data: () => ({
+    sections: [
+      {
+        // title: 'Домашні церкви',
+        // text: `Ми називаємо їх дуже ніжно: "Домашки". На "домашках" ми вивчаємо Слово Боже, молимось один за одного, п'єм чай. \n
+        //   Вперше поняття «домашньої церкви» зустрічається в посланнях апостола Павла (1 Кор. 16:19; Рим. 16: 4)`,
+        sectionClass: 'sec7',
+        seen: true
+      },
+      {
+        title: 'Новини',
+        text: `Мы регулярно проводим различные мероприятия и благотворительные программы`,
+        sectionClass: 'sec8',
+        seen: true,
+        pray: true
+      },
+      {
+        title: 'Команда',
+        text: 'Если вы хотите присоединиться к нашей команде, свяжитесь с нами по почте hello@company.com',
+        sectionClass: 'sec9',
+        seen: true,
+        footer: true
+      }
+    ],
+    TextBible: {}
+  }),
+  async mounted () {
+    const response = await fetch('https://blv-vue3-tp.firebaseio.com/bible.json')
+    const data = await response.json()
 
-        const Title = ref('Online service will be honored through:')
-        provide('title', Title)
+    const arrayVerse = Object.keys(data).map(key => {
+      return { ...data[key], id: key }
+    })
 
-        const timerStyle = ref({
-            'text-align': 'center',
-            'font-family': 'sans-serif',
-            'font-weight': 50
-        })
-        provide('timerStyle', timerStyle)
-
-        const h1Style = ref({
-            color: '#396',
-            'font-weight': 100,
-            'font-size': '20px',
-            margin: '40px 0px 20px'
-        })
-        provide('h1Style', h1Style)
-
-        const clockdiv = ref({
-            'font-family': 'sans-serif',
-            color: '#fff',
-            display: 'inline-block',
-            'font-weight': 100,
-            'text-align': 'center',
-            'font-size': '30px'
-        })
-        provide('clockdiv', clockdiv)
-
-        const clockdivDiv = ref({
-            padding: '10px',
-            'border-radius': '3px',
-            background: '#00BF96',
-            display: 'inline-block',
-            margin: '1px'
-        })
-        provide('clockdivDiv', clockdivDiv)
-
-        const clockdivDivSpan = ref({
-            padding: '15px',
-            'border-radius': '3px',
-            background: '#00816A',
-            display: 'inline-block'
-        })
-        provide('clockdivDivSpan', clockdivDivSpan)
-
-        const styleEndTime = ref({
-            color: '#fff'
-        })
-        provide('styleEndTime', styleEndTime)
-
-        const smalltext = ref({
-            'padding-top': '5px',
-            'font-size': '10px'
-        })
-        provide('smalltext', smalltext)
-
-        const titleDays = ref('Days')
-        provide('titleDays', titleDays)
-
-        const titleHours = ref('Hours')
-        provide('titleHours', titleHours)
-
-        const titleMinutes = ref('Minutes')
-        provide('titleMinutes', titleMinutes)
-
-        const titleSeconds = ref('Seconds')
-        provide('titleSeconds', titleSeconds)
-
-        const titleEndTime = ref('End Time!')
-        provide('titleEndTime', titleEndTime)
-    },
-	created() {
-			window.addEventListener('scroll', this.onScroll);
-	},
-	methods: {
-			onScroll() {
-					const el = this.$refs.header;
-					const height = el.getBoundingClientRect().height;
-					const pos = window.pageYOffset;
-					const diff = this.scrollY - pos;
-
-					this.elY = Math.min(0, Math.max(-height, this.elY + diff));
-					el.style.position = pos >= height ? 'fixed' : pos === 0 ? 'absolute' : el.style.position;
-					el.style.transform = `translateY(${el.style.position === 'fixed' ? this.elY : 0}px)`;
-
-					this.scrollY = pos;
-			},
-	},
+    this.TextBible = arrayVerse[Math.floor(Math.random() * arrayVerse.length)]
+  }
 }
 </script>
 
-<style>
-	body {
-		margin: 0;
-	}
+<style scoped lang="scss">
+.navbar {
+  overflow: hidden;
+  background-color: rgb(255 255 255);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.30);
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 80px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-content: center;
 
-	header {
-		z-index: 999;
-		position: absolute;
-		top: 0;
-		height: 100px;
-		width: 100%;
-	}
-	iframe {
-		width: 100%;
-		height: 640px;
-	}
-	/* Footer */
-	footer {
-		clear: both;
-		padding-top: 50px;
-		padding-bottom: 40px;
-		text-align: center;
-		background-color: #38404b;
-		margin-top: 30px;
-	}
+  &--menu {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+   }
 
-	footer .brand {
-		color: #bcc9dd;
-	}
+  &--icons {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      width: 70px;
+      justify-content: space-between;
+      margin-left: 20px;
+      cursor: pointer;
+  }
 
-	footer .menu li {
-		padding-left: 10px;
-		padding-right: 10px;
-	}
+  &--button {
+    color: rgb(0 0 0);
+    border: 2px solid rgb(0 87 186);
+    background-color: rgb(255 255 255);
+    border-radius: 20px;
+    margin: 0 20px;
+    cursor: pointer;
 
-	footer .menu li a {
-		color: #bcc9dd;
-	}
+    &__text {
+      color: black;
+      text-align: center;
+      padding: 5px 16px;
+      text-decoration: none;
+      font-size: 17px;
+      font-weight: 600;
+    }
+  }
 
-	footer .menu {
-		display: inline-block;
-		margin-top: 30px;
-		margin-bottom: 15px;
-	}
+  &--translate {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 0 10px;
+    cursor: pointer;
 
-	footer .copyright {
-		font-size: 12px;
-		color: #eee;
-	}
-	p {
-		font-size: 18px;
-	}
-	@media (max-width: 900px)  {
-		p {
-			font-size: 14px;
-		}
-	}
+    &__text {
+      color: #d2d2d2;
+      text-align: center;
+      padding: 5px 16px;
+      text-decoration: none;
+      font-size: 17px;
+      font-weight: 600;
+    }
+  }
+}
+
+.navbar a {
+  float: left;
+  display: block;
+  color: black;
+  text-align: left;
+  padding: 5px 16px;
+  text-decoration: none;
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.navbar a:hover {
+  background: #ddd;
+  color: black;
+  border-radius: 20px;
+}
+
+.main {
+  padding: 16px;
+  margin-top: 30px;
+  height: 1500px; /* Used in this example to enable scrolling */
+}
+
+.fullscreen-bg {
+  overflow: hidden;
+  position: relative;
+  height: 100%;
+  width: 100%;
+  padding-top:45%;
+}
+
+.fullscreen-bg__video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+.overlay {
+  background: rgba(0,0,0,0.6);
+  position: absolute;
+  top:0;
+  left:0;
+  width: 100%;
+  height: 100%;
+  z-index: 4;
+  text-align:center;
+}
+.overlay h1 {
+  text-align:center;
+  color:#fff;
+  font-size: 45px;
+  margin:10% 10%;
+  text-shadow: 0 0 10px black;
+}
+@media (max-width: 767px) {
+  .fullscreen-bg {
+    background: url('./assets/images/earth.jpg') center center / cover no-repeat;
+    padding-top: 70%;
+  }
+  .fullscreen-bg__video {
+    display: none;
+  }
+  .overlay h1 {
+    text-align:center;
+    color:#fff;
+    font-size: 25px;
+    margin:5% 5%;
+    text-shadow: 0 0 10px black;
+  }
+}
+.overlay button {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 18px;
+  margin-top: 40px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #fa5ba5;
+  padding: 20px 30px;
+  border-radius: 30px;
+  z-index: 99999;
+}
 </style>

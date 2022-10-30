@@ -1,4 +1,4 @@
-import { createApp } from 'vue'
+import { createApp, reactive, provide } from 'vue'
 import App from './App.vue'
 import './index.css'
 import 'bootstrap'
